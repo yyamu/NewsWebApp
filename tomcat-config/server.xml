@@ -30,12 +30,16 @@
 	<GlobalNamingResources>
 		<!-- Editable user database that can also be used by UserDatabaseRealm 
 			to authenticate users -->
+		
+		
+		<!--  Removed -->
+		<!--  
 		<Resource auth="Container"
 			description="User database that can be updated and saved"
 			factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
 			name="UserDatabase" pathname="conf/tomcat-users.xml"
 			type="org.apache.catalina.UserDatabase" />
-			
+			-->
 			
 			<Resource
 			name="jdbc/NewsDS"
@@ -115,8 +119,25 @@
 				<!-- This Realm uses the UserDatabase configured in the global JNDI resources 
 					under the key "UserDatabase". Any edits that are performed against this UserDatabase 
 					are immediately available for use by the Realm. -->
+				<!-- removed Yamu begin-->
+				<!-- 
 				<Realm className="org.apache.catalina.realm.UserDatabaseRealm"
 					resourceName="UserDatabase" />
+				removed Yamu end-->
+					
+				<!-- new ADDED -->
+				<Realm
+					className="org.apache.catalina.realm.DataSourceRealm"
+					dataSourceName="jdbc/NewsDS"
+					userTable="t_user"
+					userNameCol="username"
+					userCredCol="password"
+					
+					userRoleTable="v_user_role"
+					roleNameCol="rolename"
+					
+				/>
+					
 			</Realm>
 
 			<Host appBase="webapps" autoDeploy="true" name="localhost"
@@ -133,8 +154,6 @@
 					directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b"
 					prefix="localhost_access_log" suffix=".txt" />
 
-				<Context docBase="NewsWebApp" path="/news" reloadable="true"
-					source="org.eclipse.jst.jee.server:NewsWebApp" />
 			</Host>
 		</Engine>
 	</Service>
