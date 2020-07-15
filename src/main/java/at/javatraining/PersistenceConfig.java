@@ -49,6 +49,8 @@ public class PersistenceConfig {
 		Properties jpaProperties = new Properties();
 		jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		jpaProperties.setProperty("hibernate.show_sql", "true");
+		jpaProperties.setProperty("javax.persistence.sql-load-script-source", "META-INF/sql/security-data.sql");
+		jpaProperties.setProperty("hibernate.hbm2ddl.import_files_sql_extractor", "org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor");
 		return jpaProperties;
 	}
 
