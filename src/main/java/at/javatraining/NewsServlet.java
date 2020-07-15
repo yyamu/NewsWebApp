@@ -29,7 +29,8 @@ private NewsRepository newsRepository;
 
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	PrintWriter out = response.getWriter();
+	response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 	
 	HttpSession session = request.getSession(true);
 	
