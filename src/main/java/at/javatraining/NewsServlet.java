@@ -3,6 +3,7 @@ package at.javatraining;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,9 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import lombok.extern.java.Log;
+@Log
 @WebServlet("/")
 @SuppressWarnings("serial")
 public class NewsServlet extends HttpServlet {
+	//private static final Logger log = Logger.getLogger(NewsServlet.class.getName());
 @Autowired
 private NewsRepository newsRepository;
 
@@ -27,9 +31,11 @@ private NewsRepository newsRepository;
 	SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
 	}
 
-	
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	response.setContentType("text/html");
+	log.info("service() called");
+	
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 	
 	HttpSession session = request.getSession(true);
