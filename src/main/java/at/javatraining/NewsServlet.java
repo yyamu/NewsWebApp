@@ -38,7 +38,7 @@ private NewsRepository newsRepository;
 	accessCounter = (accessCounter == null ? 1 : accessCounter + 1);
 	session.setAttribute("accesscounter", accessCounter);
 
-	
+	// TEST GIT
 	List<News> newslist = newsRepository.findAll();
 	
 	out.print("<h1>News</h1>");
