@@ -2,6 +2,8 @@ package at.javatraining;
 
 import java.util.Properties;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -20,13 +22,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "at.javatraining")
 public class PersistenceConfig {
 	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/db_news?serverTimezone=Europe/Vienna");
-		dataSource.setUsername("root");
-		dataSource.setPassword("Yild3640!");
-		return dataSource;
+	public DataSource dataSource() throws NamingException {
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/db_news?serverTimezone=Europe/Vienna");
+//		dataSource.setUsername("root");
+//		dataSource.setPassword("Yild3640!");
+//		return dataSource;
+		
+		InitialContext context = new InitialContext();
+		return (DataSource) context.lookup("java:comp/env/jdbc/NewsDS");
+		
     }
 	
 	@Bean
